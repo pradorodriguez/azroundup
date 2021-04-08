@@ -37,8 +37,8 @@ jobs:
           hostname
           pwd
           ls -la
-          echo "wa-roundup variable: ${wa-roundup}"   
-          echo "DOTNET_ROOT variable: ${env.DOTNET_ROOT}"
+          echo "wa-roundup variable: ${AZURE_WEBAPP_NAME}"   
+          echo "DOTNET_ROOT variable: ${DOTNET_ROOT}"
       
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.7.2
@@ -52,7 +52,7 @@ jobs:
         run: dotnet build --configuration Release
         
       - name: Publish .Net Core Solution
-        run: dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
+        run: dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
       
       - name: Run Azure WebApp Action to deploy to Azure
         uses: Azure/webapps-deploy@v2
