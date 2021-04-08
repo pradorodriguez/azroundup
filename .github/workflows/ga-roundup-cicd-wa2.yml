@@ -15,7 +15,7 @@ on:
 
 # Environment variables used in the workflow
 env: 
-  AZURE_WEBAPP_NAME: wa-roundup
+  AZURE_WEBAPP_NAME: wa-roundup2
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -29,8 +29,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout master branch
-        uses: actions/checkout@master    
-        
+        uses: actions/checkout@master            
 
       # Runs a single command using the runners shell
       - name: Run a multi-line command
@@ -56,11 +55,11 @@ jobs:
         run: dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
       
       - name: Run Azure WebApp Action to deploy to Azure
-          uses: Azure/webapps-deploy@v2
-          with:
-            app-name: ${{ env.AZURE_WEBAPP_NAME }}
-            publish-profile: ${{ secrets.AZ_WA2_PUBLISH_PROFILE }}
-            package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+        uses: Azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZ_WA2_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
       
       
       
