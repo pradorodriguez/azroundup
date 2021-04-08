@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI/CD WebApp Deployment
+name: CI/CD WebApp Deployment to wa-roundup2
 
 # Workflow triggers: 
 on:
@@ -16,6 +16,7 @@ on:
 # Environment variables used in the workflow
 env: 
   AZURE_WEBAPP_NAME: wa-roundup
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -37,7 +38,8 @@ jobs:
           hostname
           pwd
           ls -la
-          echo "wa-roundup variable: ${wa-roundup}"          
+          echo "wa-roundup variable: ${wa-roundup}"   
+          echo "DOTNET_ROOT variable: ${env.DOTNET_ROOT}"
       
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.7.2
@@ -51,6 +53,14 @@ jobs:
         run: dotnet build --configuration Release
         
       - name: Publish .Net Core Solution
+        run: dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
+      
+      - name: Run Azure WebApp Action to deploy to Azure
+          uses: Azure/webapps-deploy@v2
+          with:
+            app-name: ${{ env.AZURE_WEBAPP_NAME }}
+            publish-profile: ${{ secrets.AZ_WA2_PUBLISH_PROFILE }}
+            package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
       
       
       
