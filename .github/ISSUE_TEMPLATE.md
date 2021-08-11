@@ -1,6 +1,6 @@
 ---
-title: Someone just pushed
+title: An Issue as occured
 assignees: pradorodriguez
-labels: bug, enhancement
+labels: issue
 ---
-Someone just pushed, oh no! Here's who did it: {{ payload.sender.login }}.
+Pull Requestor: {{ payload.sender.login }}.
