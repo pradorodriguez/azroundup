@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Hosting;
+sing Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
