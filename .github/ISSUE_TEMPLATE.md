@@ -1,6 +1,6 @@
 ---
-Issue title: Action "CI/CD WebApp Deployment to wa-roundup2" executed
-Description: Pipeline Failed
-Label: bug, issue
+title: Someone just pushed
+assignees: JasonEtco, matchai
+labels: bug, enhancement
 ---
-ACtion executed by: {{ payload.sender.login }}.
+Someone just pushed, oh no! Here's who did it: {{ payload.sender.login }}.
